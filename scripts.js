@@ -220,3 +220,11 @@ zmClient.on('user-removed', (payload) => {
     }
   }
 })
+
+function flipCamera() {
+  let cameras = zmStream.getCameraList()
+  console.log(cameras)
+
+  zmStream.switchCamera(cameras[1].deviceId)
+  // zmStream.switchCamera('environment')
+}
