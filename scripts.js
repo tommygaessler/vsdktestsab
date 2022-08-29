@@ -225,6 +225,6 @@ function flipCamera() {
   let cameras = zmStream.getCameraList()
   console.log(cameras)
 
-  zmStream.switchCamera(cameras[1].deviceId)
-  // zmStream.switchCamera('environment')
+  // zmStream.switchCamera(cameras[1].deviceId)
+  zmStream.switchCamera('environment')
 }
