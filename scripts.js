@@ -69,14 +69,28 @@ function startVideo() {
 
   if(!(typeof SharedArrayBuffer === 'function') && (typeof OffscreenCanvas === 'function')) {
     zmStream.startVideo({ videoElement: document.querySelector('#self-view-video'), mirrored: true }).then(() => {
-      document.querySelector('#self-view-video').style.display = 'block'
-      document.querySelector('#self-view-name').style.display = 'none'
 
-      document.querySelector('#startVideo').style.display = 'none'
-      document.querySelector('#stopVideo').style.display = 'inline-block'
+      if(!(typeof MediaStreamTrackProcessor === 'function')) {
+        zmStream.renderVideo(document.querySelector('#self-view-canvas'), zmClient.getCurrentUserInfo().userId, 1920, 1080, 0, 0, 3).then(() => {
+          document.querySelector('#self-view-canvas').style.display = 'block'
+        document.querySelector('#self-view-name').style.display = 'none'
 
-      document.querySelector('#startVideo').textContent = 'Start Video'
-      document.querySelector('#startVideo').disabled = false
+        document.querySelector('#startVideo').style.display = 'none'
+        document.querySelector('#stopVideo').style.display = 'inline-block'
+
+        document.querySelector('#startVideo').textContent = 'Start Video'
+        document.querySelector('#startVideo').disabled = false
+        })
+      } else {
+        document.querySelector('#self-view-video').style.display = 'block'
+        document.querySelector('#self-view-name').style.display = 'none'
+  
+        document.querySelector('#startVideo').style.display = 'none'
+        document.querySelector('#stopVideo').style.display = 'inline-block'
+  
+        document.querySelector('#startVideo').textContent = 'Start Video'
+        document.querySelector('#startVideo').disabled = false
+      }
     })
   } else {
     zmStream.startVideo({ mirrored: true }).then(() => {
@@ -221,11 +235,3 @@ zmClient.on('user-removed', (payload) => {
     }
   }
 })
-
-function flipCamera() {
-  let cameras = zmStream.getCameraList()
-  console.log(cameras)
-
-  // zmStream.switchCamera(cameras[1].deviceId)
-  zmStream.switchCamera('environment')
-}
