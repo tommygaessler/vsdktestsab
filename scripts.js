@@ -67,7 +67,7 @@ function startVideo() {
   document.querySelector('#startVideo').textContent = 'Starting Video...'
   document.querySelector('#startVideo').disabled = true
 
-  if(!(typeof SharedArrayBuffer === 'function') && (typeof OffscreenCanvas === 'function')) {
+  if((!(typeof SharedArrayBuffer === 'function') && (typeof OffscreenCanvas === 'function')) || /android/i.test(navigator.userAgent)) {
     zmStream.startVideo({ videoElement: document.querySelector('#self-view-video'), mirrored: true }).then(() => {
 
       if(!(typeof MediaStreamTrackProcessor === 'function')) {
