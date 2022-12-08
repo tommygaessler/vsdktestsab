@@ -68,7 +68,7 @@ function startVideo() {
   document.querySelector('#startVideo').disabled = true
 
   if((!zmStream.isSupportMultipleVideos() && (typeof OffscreenCanvas === 'function')) || /android/i.test(navigator.userAgent)) {
-    zmStream.startVideo({ videoElement: document.querySelector('#self-view-video'), mirrored: true }).then(() => {
+    zmStream.startVideo({ videoElement: document.querySelector('#self-view-video'), mirrored: true, hd: true }).then(() => {
 
       if(!(typeof MediaStreamTrackProcessor === 'function')) {
         zmStream.renderVideo(document.querySelector('#self-view-canvas'), zmClient.getCurrentUserInfo().userId, 1920, 1080, 0, 0, 3).then(() => {
@@ -97,7 +97,7 @@ function startVideo() {
       console.log(error)
     })
   } else {
-    zmStream.startVideo({ mirrored: true }).then(() => {
+    zmStream.startVideo({ mirrored: true,  hd: true }).then(() => {
       zmStream.renderVideo(document.querySelector('#self-view-canvas'), zmClient.getCurrentUserInfo().userId, 1920, 1080, 0, 0, 3).then(() => {
         document.querySelector('#self-view-canvas').style.display = 'block'
         document.querySelector('#self-view-name').style.display = 'none'
