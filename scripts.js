@@ -17,7 +17,10 @@ let geoRegions
 let cloudRecordingOption
 let cloudRecordingElection
 
-zmClient.init('US-en')
+zmClient.init('US-en', 'Global', {
+  patchJsMedia: true
+})
+
 
 function getSignature() {
 
